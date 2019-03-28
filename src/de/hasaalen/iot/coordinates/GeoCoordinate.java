@@ -25,18 +25,29 @@ public class GeoCoordinate {
         return latitude;
     }
 
+    /**
+     * Create a random point within distance d km of this point
+     *
+     * Randomly generates a point within d kilometers of this. The algorithm simply
+     * approximates the candidates using a rectangle of valid points and then checks
+     * if the random point is within the specified distance. It repeats this process for
+     * a number of times that depends on the distance d.
+     *
+     * @param d distance (in km) of the current point
+     * @return a point within d km or this, if no such point was found
+     */
     public GeoCoordinate randomizedPointWithinDistance(double d) {
         final double angularDistance = d / Util.RADIUS;
-        final double maxLatDelta = latitude + angularDistance;
-        final double minLatDelta = latitude - angularDistance;
-        final double maxLonDelta = longitude + angularDistance;
-        final double minLonDelta = longitude - angularDistance;
+        final double maxLatDelta = Math.toRadians(latitude) + angularDistance;
+        final double minLatDelta = Math.toRadians(latitude) - angularDistance;
+        final double maxLonDelta = Math.toRadians(longitude) + angularDistance;
+        final double minLonDelta = Math.toRadians(longitude) - angularDistance;
 
 
         for (int i = 0; i < NUM_RETIRES * d; i++) {
-            double latDelta = ThreadLocalRandom.current().nextDouble(minLatDelta, maxLatDelta);
-            double lonDelta = ThreadLocalRandom.current().nextDouble(minLonDelta, maxLonDelta);
-            GeoCoordinate candidate = new GeoCoordinate(latitude + latDelta, longitude + lonDelta);
+            double newLat = ThreadLocalRandom.current().nextDouble(minLatDelta, maxLatDelta);
+            double newLong = ThreadLocalRandom.current().nextDouble(minLonDelta, maxLonDelta);
+            GeoCoordinate candidate = new GeoCoordinate(Math.toDegrees(newLat), Math.toDegrees(newLong));
             if (Util.angularDistance(this, candidate) < angularDistance) {
                 return candidate;
             }

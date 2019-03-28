@@ -57,7 +57,7 @@ public class GenerateFiles {
                 builder.append(",");
 
         }
-        builder.append(LocalDateTime.now().toString());
+        builder.append(LocalDateTime.now().minusSeconds(r.nextInt(3600)).toString());
         builder.append("\n");
         return builder.toString();
     }
@@ -72,7 +72,7 @@ public class GenerateFiles {
             } else {
                 sensor = arguments.type;
             }
-            final String baseName = sensor + LocalDateTime.now().toString();
+            final String baseName = sensor + "_" + LocalDateTime.now().toString();
             final Path p = Paths.get(baseName + ".csv");
             try (BufferedWriter writer = Files.newBufferedWriter(p)) {
                 for (int j = 0; j < arguments.numLines; j++) {
