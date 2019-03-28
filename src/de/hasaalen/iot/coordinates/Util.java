@@ -18,7 +18,7 @@ public class Util {
         final double deltaLongitude = Math.abs(aLongitudeRads - bLongitudeRads);
         final double deltaLatitude = Math.abs(aLatitudeRads - bLatitudeRads);
 
-        // Haversine formula for the creat circle distance; unit is radians for input and output
+        // Haversine formula for the great circle distance; unit is radians for input and output
         final double havSineLatitude = Math.sin(deltaLatitude / 2);
         final double havSineLongitude = Math.sin(deltaLongitude / 2);
         return 2 * Math.asin(Math.sqrt(havSineLatitude * havSineLatitude +

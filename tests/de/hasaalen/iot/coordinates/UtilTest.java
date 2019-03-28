@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 class UtilTest {
 
     @Test
-    void angularDistance() {
+    void testAngularDistance() {
         GeoCoordinate a = new GeoCoordinate(48.79963, 9.78756);
         GeoCoordinate b = new GeoCoordinate(48.79881, 9.78554);
         double angularDistance = Util.angularDistance(a, b);
