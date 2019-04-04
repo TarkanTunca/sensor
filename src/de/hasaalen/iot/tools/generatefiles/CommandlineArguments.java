@@ -20,6 +20,7 @@ class CommandlineArguments {
     }
 
     public static CommandlineArguments fromStringArray(String[] args) {
+        //TODO: Adapt this method to accept an extra parameter 'directory' as first argument
         if (args == null || args.length < 2) {
             return null;
         }

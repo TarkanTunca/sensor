@@ -49,21 +49,23 @@ public class GenerateFiles {
 
 
     public static void main(String[] args) {
+        //TODO: Use fromStringArray here
         CommandlineArguments arguments = new CommandlineArguments(1, 20, null);
 
         for (int i = 0; i < arguments.numFiles; i++) {
-            final Sensor sensor;
 
+            final Sensor sensor;
             if (arguments.type == null) {
                 sensor = Sensor.values()[ThreadLocalRandom.current().nextInt(3)];
             } else {
                 sensor = arguments.type;
             }
 
-            //TODO: Extract into outer method
+            //TODO: Extract this into outer method
             final String baseName = sensor + "_" + LocalDate.now().toString();
             Path p = Paths.get(baseName + ".csv");
             for (int k = 1; Files.exists(p); k++) {
+                //TODO: Add logic to specify directory here
                 p = Paths.get(baseName + "_" + k + ".csv");
             }
 
