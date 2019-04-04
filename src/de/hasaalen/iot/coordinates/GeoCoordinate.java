@@ -27,7 +27,7 @@ public class GeoCoordinate {
 
     /**
      * Create a random point within distance d km of this point
-     *
+     * <p>
      * Randomly generates a point within d kilometers of this. The algorithm simply
      * approximates the candidates using a rectangle of valid points and then checks
      * if the random point is within the specified distance. It repeats this process for
@@ -53,6 +53,15 @@ public class GeoCoordinate {
             }
         }
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GeoCoordinate)) return false;
+        GeoCoordinate that = (GeoCoordinate) o;
+        return that.latitude == latitude &&
+                that.longitude == longitude;
     }
 
 }
