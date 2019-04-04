@@ -1,5 +1,6 @@
 package de.hasaalen.iot.coordinates;
 
+import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GeoCoordinate {
@@ -14,7 +15,7 @@ public class GeoCoordinate {
 
     @Override
     public String toString() {
-        return String.format("(%f;%f)", latitude, longitude);
+        return String.format(Locale.US, "(%f;%f)", latitude, longitude);
     }
 
     public double getLongitude() {

@@ -40,7 +40,7 @@ class GeoCoordinateTest {
 
     @Test
     void testToString() {
-        final String expected = "(48,786222;9,786118)";
+        final String expected = "(48.786222;9.786118)";
         GeoCoordinate coo = new GeoCoordinate(48.78622187567267, 9.786118320659753);
         assertThat(coo.toString(), is(equalTo(expected)));
     }
