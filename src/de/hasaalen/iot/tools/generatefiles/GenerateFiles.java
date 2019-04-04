@@ -20,7 +20,7 @@ public class GenerateFiles {
      * Generate a random line of "data" from the sensor specified as argument
      *
      * @param sensor
-     * @return a CSV line (inlcudin \n) of data for the given sensor
+     * @return a CSV line (including \n) of data for the given sensor
      */
     private static String generateLine(Sensor sensor) {
         ThreadLocalRandom rng = ThreadLocalRandom.current();
