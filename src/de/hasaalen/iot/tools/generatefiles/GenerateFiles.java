@@ -22,7 +22,7 @@ public class GenerateFiles {
      * @param sensor
      * @return a CSV line (including \n) of data for the given sensor
      */
-    private static String generateLine(Sensor sensor) {
+    public static String generateLine(Sensor sensor) {
         ThreadLocalRandom rng = ThreadLocalRandom.current();
         StringBuilder builder = new StringBuilder();
         switch (sensor) {
