@@ -5,6 +5,7 @@ import de.hasaalen.iot.coordinates.GeoCoordinate;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -64,12 +65,10 @@ public class GenerateFiles {
                 sensor = arguments.type;
             }
 
-            //TODO: Extract this into outer method
-            final String baseName = sensor + "_" + LocalDate.now().toString();
-            Path p = Paths.get(arguments.directory, baseName + ".csv");
-            for (int k = 1; Files.exists(p); k++) {
-                //TODO: Add logic to specify directory here
-                p = Paths.get(arguments.directory, baseName + "_" + k + ".csv");
+            Path p = constructFilename(arguments, sensor);
+            if (p == null) {
+                // Error. Could not generate a path
+                return;
             }
 
             // This is a try-catch block/try-with-resources statement. You can safely ignore this for now, until we
@@ -82,6 +81,20 @@ public class GenerateFiles {
                 System.err.println(e.getMessage());
             }
 
+        }
+    }
+
+    private static Path constructFilename(CommandlineArguments arguments, Sensor sensor) {
+        try {
+            final String baseName = sensor + "_" + LocalDate.now().toString();
+            Path p = Paths.get(arguments.directory, baseName + ".csv");
+            for (int k = 1; Files.exists(p); k++) {
+                p = Paths.get(arguments.directory, baseName + "_" + k + ".csv");
+            }
+            return p;
+        } catch (InvalidPathException e) {
+            System.err.println("Invalid path: " + e.getMessage());
+            return null;
         }
     }
 }
