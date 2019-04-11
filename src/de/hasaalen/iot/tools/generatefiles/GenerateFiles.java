@@ -49,8 +49,11 @@ public class GenerateFiles {
 
 
     public static void main(String[] args) {
-        //TODO: Use fromStringArray here
-        CommandlineArguments arguments = new CommandlineArguments(1, 20, null);
+        CommandlineArguments arguments = CommandlineArguments.fromStringArray(args);
+        if (arguments == null) {
+            System.err.println("Error. Need arguments: numFiles [, numLines [,  sensorType]]");
+            return;
+        }
 
         for (int i = 0; i < arguments.numFiles; i++) {
 
