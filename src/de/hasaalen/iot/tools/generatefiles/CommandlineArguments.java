@@ -27,9 +27,17 @@ class CommandlineArguments {
             return null;
         }
         final String directory = args[0];
-        //TODO: Exceptions
-        final int numFiles = Integer.parseInt(args[1]);
-        final int numLines = Integer.parseInt(args[2]);
+
+        // We may declare a final variable without initializing it, if we GUARANTEE initialization before first use.
+        final int numFiles;
+        final int numLines;
+        try {
+            numFiles = Integer.parseInt(args[1]);
+            numLines = Integer.parseInt(args[2]);
+        } catch (NumberFormatException e) {
+            System.err.println("Error: '" + args[1] + "' or '" + args[2] + "' is not a valid number");
+            return null;
+        }
 
         Sensor type = null;
         if (args.length >= 4) {

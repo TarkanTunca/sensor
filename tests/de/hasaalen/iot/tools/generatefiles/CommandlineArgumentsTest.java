@@ -27,6 +27,13 @@ class CommandlineArgumentsTest {
     }
 
     @Test
+    void testNumberFormatExceptionIsHandeled() {
+        String[] illegalArgs = { "dir", "ILLEGALNUMER", "ILLEGALNUMBER", "humidity"};
+        CommandlineArguments a = CommandlineArguments.fromStringArray(illegalArgs);
+        assertThat(a, is(nullValue()));
+    }
+
+    @Test
     void testTooFewArgs() {
         String[] oneArg = {"dir"};
         String[] twoArg =  {"dir", "23"};
