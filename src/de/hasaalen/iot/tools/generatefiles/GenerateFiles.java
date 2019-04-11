@@ -51,7 +51,7 @@ public class GenerateFiles {
     public static void main(String[] args) {
         CommandlineArguments arguments = CommandlineArguments.fromStringArray(args);
         if (arguments == null) {
-            System.err.println("Error. Need arguments: numFiles [, numLines [,  sensorType]]");
+            System.err.println("Error. Need arguments: directory, numFiles [, numLines [,  sensorType]]");
             return;
         }
 
@@ -66,10 +66,10 @@ public class GenerateFiles {
 
             //TODO: Extract this into outer method
             final String baseName = sensor + "_" + LocalDate.now().toString();
-            Path p = Paths.get(baseName + ".csv");
+            Path p = Paths.get(arguments.directory, baseName + ".csv");
             for (int k = 1; Files.exists(p); k++) {
                 //TODO: Add logic to specify directory here
-                p = Paths.get(baseName + "_" + k + ".csv");
+                p = Paths.get(arguments.directory, baseName + "_" + k + ".csv");
             }
 
             // This is a try-catch block/try-with-resources statement. You can safely ignore this for now, until we
