@@ -27,9 +27,6 @@ class CommandlineArgumentsTest {
     @Test
     void fromStringArray() {
         String[] oneArg = {"23"};
-        String[] twoArgs = {"34", "134"};
-        String[] threeArgs = {"33", "714", "humidity"};
-
         /* If a null array is passed, or if the array contains less than two entries,
         a null value should be returned to indicate an error.
          */
@@ -37,21 +34,23 @@ class CommandlineArgumentsTest {
         assertThat(defaultArgs, is(nullValue()));
         CommandlineArguments fromOneArg = CommandlineArguments.fromStringArray(oneArg);
         assertThat(fromOneArg, is(nullValue()));
+    }
 
-        /* We can see here that this test is suboptimal: It is just too long and therefore
-        unnecessarily difficult to read.
-
-        For this reason, we usually split tests up into multiple test-methods.
-        TODO: Split this test into three test methods
-         */
-        CommandlineArguments fromTwoArgs = CommandlineArguments.fromStringArray(twoArgs);
-        assertThat(fromTwoArgs.numFiles, equalTo(34));
-        assertThat(fromTwoArgs.numLines, equalTo(134));
-        assertThat(fromTwoArgs.type, is(nullValue()));
-
+    @Test
+    void testThreeArgs() {
+        String[] threeArgs = {"33", "714", "humidity"};
         CommandlineArguments fromThreeArgs = CommandlineArguments.fromStringArray(threeArgs);
         assertThat(fromThreeArgs.numFiles, equalTo(33));
         assertThat(fromThreeArgs.numLines, equalTo(714));
         assertThat(fromThreeArgs.type, is(equalTo(Sensor.HUMIDITY)));
+    }
+
+    @Test
+    void testTwoArgs() {
+        String[] twoArgs = {"34", "134"};
+        CommandlineArguments fromTwoArgs = CommandlineArguments.fromStringArray(twoArgs);
+        assertThat(fromTwoArgs.numFiles, equalTo(34));
+        assertThat(fromTwoArgs.numLines, equalTo(134));
+        assertThat(fromTwoArgs.type, is(nullValue()));
     }
 }
